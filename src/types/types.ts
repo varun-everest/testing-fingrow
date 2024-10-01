@@ -31,3 +31,10 @@ export type TGoal = {
     targetAmount: number,
     savedAmount: number,
 }
+
+export type TReport = {
+    totalIncome : number,
+    totalExpenses: number,
+    budgetSummary: string[],
+    savingGoalsProgress: string[],
+}
