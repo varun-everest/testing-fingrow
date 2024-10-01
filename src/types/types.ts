@@ -16,11 +16,18 @@ export type TUser = {
     transactions: TTransaction[],
     salary: number,
     otherIncome: number,
-    expenses: TBudget[]
+    expenses: TBudget[],
+    savingGoals: TGoal[],
 }
 
 export type TBudget = {
     category: string,
     allotedAmount: number,
     usedAmount: number,
+}
+
+export type TGoal = {
+    title: string,
+    targetAmount: number,
+    savedAmount: number,
 }
