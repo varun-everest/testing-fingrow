@@ -19,6 +19,18 @@ export const users : TUser[] = [
                 usedAmount: 300,
             },
         ],
+        savingGoals: [
+            {
+                title: 'Emergency Fund',
+                targetAmount: 10000,
+                savedAmount: 500,
+            },
+            {
+                title: 'IPhone Savings',
+                targetAmount: 10000,
+                savedAmount: 9500,
+            },
+        ]
     }, 
     {
         username:'Virat',
@@ -27,6 +39,7 @@ export const users : TUser[] = [
         otherIncome: 10000,
         transactions: [],
         expenses: [],
+        savingGoals: []
     }
 ]
 
