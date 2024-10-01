@@ -7,12 +7,20 @@ export type TTransaction = {
     transactionType : string,
     amount: number,
     date : Date,
+    description: string
 }
 
 export type TUser = {
     username: string,
     password: string,
-    transactions: TTransaction[]
+    transactions: TTransaction[],
     salary: number,
-    otherIncome: number
+    otherIncome: number,
+    expenses: TBudget[]
+}
+
+export type TBudget = {
+    category: string,
+    allotedAmount: number,
+    usedAmount: number,
 }
