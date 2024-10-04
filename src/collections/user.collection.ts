@@ -1,20 +1,16 @@
 import mongoose, {Schema} from "mongoose";
-import TIncome from "../types/TIncome";
+// import TIncome from "../types/TIncome";
 
-const incomeSchema = new Schema<TIncome>({
+/* const incomeSchema = new Schema<TIncome>({
     source: String,
     amount: Number,
-})
+}); */
 
 const userSchema = new Schema({
     username : String,
     password : String,
-    totalIncome :  [
-        { 
-            type : incomeSchema
-        }
-    ],
-    amountUsed : Number
+    totalIncome: Number,
+    amountUsed : Number,
 });
 
 const UserModel = mongoose.model('Users', userSchema);
