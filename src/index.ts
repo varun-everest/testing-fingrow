@@ -12,10 +12,10 @@ const app = express();
 
 const initializeDatabase = async() => {
     await startDatabase();
-    // UserModel
-    // TransactionModel
-    // BudgetModel;
-    // SavingGoalsModel;
+    UserModel
+    TransactionModel
+    BudgetModel;
+    SavingGoalsModel;
 }
 
 initializeDatabase();
