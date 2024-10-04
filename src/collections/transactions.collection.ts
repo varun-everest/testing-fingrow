@@ -15,8 +15,9 @@ export const transaction = new Schema({
         type : Date,
         default : Date.now()
     },
-    note : String
-})
+    purpose : String,
+    name : String,
+});
 
 const transactionSchema = new Schema({
     userId : {
