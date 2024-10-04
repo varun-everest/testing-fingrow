@@ -10,7 +10,10 @@ const userSchema = new Schema({
     username : String,
     password : String,
     totalIncome: Number,
-    amountUsed : Number,
+    amountUsed : {
+        type : Number,
+        default : 0
+    }
 });
 
 const UserModel = mongoose.model('Users', userSchema);
