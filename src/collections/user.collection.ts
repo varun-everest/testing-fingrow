@@ -7,9 +7,19 @@ import mongoose, {Schema} from "mongoose";
 }); */
 
 const userSchema = new Schema({
-    username : String,
-    password : String,
-    totalIncome: Number,
+    username : {
+        type : String,
+        required: true,
+        unique: true
+    },
+    password : {
+        type : String,
+        required : true,
+    },
+    totalIncome: {
+       type : Number,
+       required: true
+    },
     amountUsed : {
         type : Number,
         default : 0
