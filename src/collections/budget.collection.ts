@@ -1,14 +1,4 @@
-import mongoose, {Schema, SchemaTypes} from 'mongoose';
-import { TBudget } from '../types/types';
-
-export const budget = new Schema<TBudget>({
-    category : {
-        type : String,
-        unique : true,
-    },
-    allotedAmount : Number,
-    usedAmount : Number,
-});
+import mongoose, {Document, Schema, SchemaTypes} from 'mongoose';
 
 const budgetSchema = new Schema({
     userId : {
@@ -17,7 +7,15 @@ const budgetSchema = new Schema({
     },
     budgets : [
         {
-            type : budget
+            category : {
+                type : String,
+                unique : true,
+            },
+            allotedAmount : Number,
+            usedAmount : {
+                type : Number,
+                default : 0
+            }
         }
     ],
 });
