@@ -56,4 +56,21 @@ describe('Tests related to generating report', () => {
 
         expect(console.log).toHaveBeenCalledWith("No transactions are there between the period");
     });
+
+    test('should correctly generate total report', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            transactions: [
+                { date: new Date('2024-01-01'), txnCategory: 'budget', amount: 100 },
+                { date: new Date('2024-01-15'), txnCategory: 'savinggoal', amount: 150 },
+                { date: new Date('2024-01-20'), txnCategory: 'budget', amount: 50 },
+            ],
+        });
+
+        await user.generateReport('total', new Date('2024-01-01'), new Date('2024-01-31'));
+
+        expect(console.log).toHaveBeenCalledWith(`Total Income: 150`);
+        expect(console.log).toHaveBeenCalledWith(`Total Expenses: 150`);
+    });
 });
