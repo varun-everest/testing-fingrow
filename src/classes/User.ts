@@ -76,7 +76,7 @@ class User{
             console.log("Successfully added New Budget");
             return ;
         }
-        const budgetExisted = userBudgets.budgets.find((b: { category: string; }) => b.category === newBudget.category);
+        const budgetExisted = userBudgets.budgets.find((b) => b.category === newBudget.category);
         if(!budgetExisted) {
             user.amountUsed += allotedAmount;
             userBudgets.budgets.push({
@@ -106,7 +106,7 @@ class User{
             console.log('No budget exists');
             return ;
         }
-        const findBudget = userBudgets.budgets.find((b: { category: string; }) => b.category === category);
+        const findBudget = userBudgets.budgets.find(b => b.category === category);
         if(findBudget) {
             if(findBudget.spentAmount > newAllotedAmount) {
                 console.log("Unable to update the budget. Already spent amount exceeds the new allotting amount");
@@ -140,7 +140,7 @@ class User{
             return;
         }
 
-        const budget = userBudgets.budgets.find((b: { category: string; }) => b.category === category);
+        const budget = userBudgets.budgets.find(b => b.category === category);
         if (budget) {
             console.log(`For Category ${budget.category} You have Allotted Amount is ${budget.allotedAmount} and Spent Amount is ${budget.spentAmount}`);
             return ;
@@ -175,10 +175,10 @@ class User{
             console.log('Successfully added new Goal');
             return ;
         }
-        const goalExist = userGoals.goals.find((g: { title: string; }) => g.title === newGoal.title);
+        const goalExist = userGoals.goals.find((g) => g.title === newGoal.title);
         if(goalExist) {
             console.log("Goal already exists. Cannot be added");
-            return ;
+            // return 'Heloo' ;
         }
         else {
             userGoals.goals.push({
@@ -208,7 +208,7 @@ class User{
             return;
         }
 
-        const goal = userGoals.goals.find((g: { title: string; }) => g.title === title);
+        const goal = userGoals.goals.find(g => g.title === title);
         if (goal && goal.targetAmount) {
             const progress = (goal.currentAmount / goal.targetAmount) * 100;
             if(progress >= 90) {
@@ -296,7 +296,7 @@ class User{
             return ;
         }
 
-        const filteredTransactions = userTransactions.transactions.filter((txn: { date: Date; }) => {
+        const filteredTransactions = userTransactions.transactions.filter(txn => {
             if(txn.date) {
                 if(txn.date >= startDate && txn.date <= endDate) {
                     return txn;
@@ -311,7 +311,7 @@ class User{
         
         if(reportName === 'total') {
 
-            const totals = filteredTransactions.reduce((total: { totalExpenses: any; totalIncome: any; }, txn: { txnCategory: string; amount: any; }) => {
+            const totals = filteredTransactions.reduce((total, txn) => {
                 if (txn.txnCategory === 'budget' && txn.amount) {
                     total.totalExpenses += txn.amount; 
                 } else if (txn.txnCategory === 'savinggoal' && txn.amount) {
@@ -329,7 +329,7 @@ class User{
             `
         }
         else if (reportName === 'budget') {
-            const budgetTransactions = filteredTransactions.filter((txn: { txnCategory: string; }) => txn.txnCategory === 'budget');
+            const budgetTransactions = filteredTransactions.filter(txn => txn.txnCategory === 'budget');
             if(!budgetTransactions) {
                 console.log("Empty budget summary");
                 return ;
@@ -341,14 +341,14 @@ class User{
                 return ;
             }
 
-            const budgetSummary = userBudgets.budgets.map((budget: { category: any; allotedAmount: any; spentAmount: any; }) => {
+            const budgetSummary = userBudgets.budgets.map(budget => {
                 return {
                     category : budget.category,
                     allottedAmount : budget.allotedAmount,
                     spentAmount :  budget.spentAmount,
                 }
             });
-            budgetSummary.forEach((b: { category: any; allottedAmount: any; spentAmount: any; }) => {
+            budgetSummary.forEach(b => {
                 console.log(`Category: ${b.category}, Allotted: ${b.allottedAmount}, Spent: ${b.spentAmount}`);
             });
             return ;
@@ -360,7 +360,7 @@ class User{
                 return ;
             }
 
-            const goalsProgress = userGoals.goals.map((goal: { title: any; targetAmount: any; currentAmount: any; }) => {
+            const goalsProgress = userGoals.goals.map(goal => {
                 return {
                     goalName : goal.title,
                     targetAmount : goal.targetAmount,
@@ -368,8 +368,8 @@ class User{
                 }
             });
 
-            goalsProgress.forEach((g: { goalName: any; targetAmount: any; savedAmount: any; }) => {
-                console.log(`Goal Name: ${g.goalName}, Target Amount: ${g.targetAmount}, Saved: ${g.savedAmount}`);
+            goalsProgress.forEach(g => {
+                console.log(`Goal Name: ${g.goalName}, Taget Amount: ${g.targetAmount}, Saved: ${g.savedAmount}`);
             });
             return ;
         }
