@@ -88,4 +88,26 @@ describe('Tests related to generating report', () => {
 
         expect(console.log).toHaveBeenCalledWith("No budgets found");
     });
+
+    test('should generate budget report correctly', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            transactions: [
+                { date: new Date('2024-01-01'), txnCategory: 'budget', amount: 100 },
+            ],
+        });
+        (BudgetModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            budgets: [
+                { category: 'Food', allotedAmount: 200, spentAmount: 100 },
+                { category: 'Movie', allotedAmount: 100, spentAmount: 50 },
+            ],
+        });
+
+        await user.generateReport('budget', new Date('2024-01-01'), new Date('2024-12-31'));
+
+        expect(console.log).toHaveBeenCalledWith(`Category: Food, Allotted: 200, Spent: 100`);
+        expect(console.log).toHaveBeenCalledWith(`Category: Movie, Allotted: 100, Spent: 50`);
+    });
 });
