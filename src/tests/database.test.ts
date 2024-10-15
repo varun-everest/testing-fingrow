@@ -26,4 +26,11 @@ describe('Tests related to Database Connection', () => {
         expect(mongoose.connect).toHaveBeenCalledWith('mongodb://127.0.0.1:27017/fingrow');
         expect(console.log).toHaveBeenCalledWith("Error Occurred : ", expect.any(Error));
     });
+
+    test('should connect to the database successfully', async () => {
+        await startDatabase();
+
+        expect(mongoose.connect).toHaveBeenCalledWith('mongodb://127.0.0.1:27017/fingrow');
+        expect(console.log).toHaveBeenCalledWith('Successfully connected to database.');
+    });
 });
