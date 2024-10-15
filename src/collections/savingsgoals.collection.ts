@@ -8,10 +8,12 @@ const savingGoalsSchema = new Schema({
     goals : [{
         title : {
             type : String,
-            unique : true
         },
         targetAmount : Number,
-        currentAmount : Number
+        currentAmount : {
+            type: Number,
+            default : 0
+        }
     }],
     
 });
