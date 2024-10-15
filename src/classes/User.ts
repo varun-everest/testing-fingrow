@@ -369,7 +369,7 @@ class User{
             });
 
             goalsProgress.forEach(g => {
-                console.log(`Goal Name: ${g.goalName}, Taget Amount: ${g.targetAmount}, Saved: ${g.savedAmount}`);
+                console.log(`Goal Name: ${g.goalName}, Target Amount: ${g.targetAmount}, Saved: ${g.savedAmount}`);
             });
             return ;
         }
