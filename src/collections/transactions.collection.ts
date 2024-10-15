@@ -1,23 +1,5 @@
 import mongoose, {Schema, SchemaTypes} from "mongoose";
 
-export enum trans {
-    CREDIT = 'credit',
-    DEBIT = 'debit'
-}
-
-export const transaction = new Schema({
-    transactionType : {
-        type : String,
-        enum: Object.values(trans)
-    },
-    amount : Number,
-    date : {
-        type : Date,
-        default : Date.now()
-    },
-    purpose : String,
-    name : String,
-});
 
 const transactionSchema = new Schema({
     userId : {
@@ -26,7 +8,11 @@ const transactionSchema = new Schema({
     },
     transactions : [
         {
-            type : transaction
+            amount : Number,
+            txnCategory : String,   
+            name : String,
+            date : Date,
+            description : String
         }
     ]
 });
