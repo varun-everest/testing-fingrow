@@ -110,4 +110,19 @@ describe('Tests related to generating report', () => {
         expect(console.log).toHaveBeenCalledWith(`Category: Food, Allotted: 200, Spent: 100`);
         expect(console.log).toHaveBeenCalledWith(`Category: Movie, Allotted: 100, Spent: 50`);
     });
+
+    test('should give an error if no goals are found for saving goals report', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            transactions: [
+                { date: new Date('2024-01-01'), txnCategory: 'budget', amount: 100 },
+            ],
+        });
+        (SavingGoalsModel.findOne as jest.Mock).mockResolvedValueOnce(null);
+
+        await user.generateReport('savinggoals', new Date('2024-01-01'), new Date('2024-12-31'));
+
+        expect(console.log).toHaveBeenCalledWith("No goals found");
+    });
 });
