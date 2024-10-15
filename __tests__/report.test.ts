@@ -42,5 +42,18 @@ describe('Tests related to generating report', () => {
         expect(console.log).toHaveBeenCalledWith("No transactions found");
     });
 
-    
+    test('should give an error if no transactions are there between the period', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            transactions: [
+                { date: new Date('2023-01-01'), txnCategory: 'budget', amount: 100 },
+                { date: new Date('2023-02-01'), txnCategory: 'budget', amount: 50 },
+            ],
+        });
+
+        await user.generateReport('total', new Date('2023-03-01'), new Date('2023-03-31'));
+
+        expect(console.log).toHaveBeenCalledWith("No transactions are there between the period");
+    });
 });
