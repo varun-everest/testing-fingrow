@@ -5,10 +5,11 @@ import TransactionModel from './collections/transactions.collection';
 import BudgetModel from './collections/budget.collection';
 import SavingGoalsModel from './collections/savingsgoals.collection';
 import router from './routes/router';
+import User from './classes/User';
 
 
-const PORT = 4000;
-const app = express();
+// const PORT = 4000;
+// const app = express();
 
 const initializeDatabase = async() => {
     await startDatabase();
@@ -16,13 +17,16 @@ const initializeDatabase = async() => {
     TransactionModel
     BudgetModel;
     SavingGoalsModel;
+
+    const user = new User('varun','V@run765', 100000);
+    await user.registerUser();
 }
 
 initializeDatabase();
 
-app.use('/api', router);
+// app.use('/api', router);
 
 
-app.listen(PORT, () => {
-    console.log(`Server is running at http:localhost:${PORT}/`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Server is running at http:localhost:${PORT}/`);
+// });
