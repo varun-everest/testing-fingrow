@@ -5,7 +5,7 @@ import BudgetModel from '../src/collections/budget.collection';
 jest.mock('../src/collections/user.collection');
 jest.mock('../src/collections/budget.collection');
 
-describe('User Class - addBudget Method', () => {
+describe('Tests related to adding the budget to the user', () => {
     const username = 'testuser';
     const password = 'password123';
     const totalIncome = 5000;
