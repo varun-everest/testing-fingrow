@@ -33,5 +33,14 @@ describe('Tests related to generating report', () => {
         expect(console.log).toHaveBeenCalledWith("User does not exist");
     });
 
+    test('should give an error if no transactions are found', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce(null);
+
+        await user.generateReport('total', new Date('2023-01-01'), new Date('2023-12-31'));
+
+        expect(console.log).toHaveBeenCalledWith("No transactions found");
+    });
+
     
 });
