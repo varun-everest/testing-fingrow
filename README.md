@@ -24,6 +24,27 @@ FinGrow includes the following functionalities:
 - Summary of budget usage across categories.
 - Progress towards savings goals.
 
+#### Transactions from file
+- Transactions will be stored in a file and it is read and all the transactions in the csv file mentioned will be implemented.
+
+## Required Technical Knowledge
+
+Make sure that you have the following installed on your machine:
+
+- **Node.js**
+- **Express**
+- **TypeScript**
+- **MongoDB**
+- **Mongoose**
+- **Jest**
+
+
+## Setting Up the Environment
+
+For detailed guidance on setting up Jest with TypeScript, please refer to the official documentation:
+
+- **[Jest Getting Started](https://jestjs.io/docs/getting-started)**
+
 ## Usage  
     git clone git@github.com:varun-everest/testing-fingrow.git
     
@@ -33,6 +54,8 @@ FinGrow includes the following functionalities:
 
     npm test 
 
+### For Running app
+    npm start
 
 ## Contact 
     For any queries, reach out to this mail
