@@ -73,4 +73,19 @@ describe('Tests related to generating report', () => {
         expect(console.log).toHaveBeenCalledWith(`Total Income: 150`);
         expect(console.log).toHaveBeenCalledWith(`Total Expenses: 150`);
     });
+
+    test('should give an error for empty budget summary', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            transactions: [
+                { date: new Date('2024-01-01'), txnCategory: 'budget', amount: 100 },
+            ],
+        });
+        (BudgetModel.findOne as jest.Mock).mockResolvedValueOnce(null);
+
+        await user.generateReport('budget', new Date('2024-01-01'), new Date('2024-12-31'));
+
+        expect(console.log).toHaveBeenCalledWith("No budgets found");
+    });
 });
