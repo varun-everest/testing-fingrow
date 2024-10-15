@@ -125,4 +125,26 @@ describe('Tests related to generating report', () => {
 
         expect(console.log).toHaveBeenCalledWith("No goals found");
     });
+
+    test('should generate saving goals report correctly', async () => {
+        (UserModel.findOne as jest.Mock).mockResolvedValueOnce({ _id: '670dfd579aa9cedda891c967' });
+        (TransactionModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            transactions: [
+                { date: new Date('2024-01-01'), txnCategory: 'budget', amount: 100 },
+            ],
+        });
+        (SavingGoalsModel.findOne as jest.Mock).mockResolvedValueOnce({
+            userId: '670dfd579aa9cedda891c967',
+            goals: [
+                { title: 'Emergency fund', targetAmount: 10000, currentAmount: 5000 },
+                { title: 'Airpods', targetAmount: 20000, currentAmount: 15000 },
+            ],
+        });
+
+        await user.generateReport('savinggoals', new Date('2024-01-01'), new Date('2024-12-31'));
+
+        expect(console.log).toHaveBeenCalledWith(`Goal Name: Emergency fund, Target Amount: 10000, Saved: 5000`);
+        expect(console.log).toHaveBeenCalledWith(`Goal Name: Airpods, Target Amount: 20000, Saved: 15000`);
+    });
 });
