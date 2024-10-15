@@ -9,10 +9,9 @@ const budgetSchema = new Schema({
         {
             category : {
                 type : String,
-                unique : true,
             },
             allotedAmount : Number,
-            usedAmount : {
+            spentAmount : {
                 type : Number,
                 default : 0
             }
