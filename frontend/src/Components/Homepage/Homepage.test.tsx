@@ -28,6 +28,13 @@ describe('Tests related to Homepage Component', () => {
         expect(registerButton).toBeInTheDocument();
     });
 
+    test("should renders the welcome heading title", () => {
+        render(<Homepage />);
+    
+        const tagline = screen.getByRole("heading", {level:3});
+        expect(tagline).toBeInTheDocument();
+    });
+
 })
 
 
