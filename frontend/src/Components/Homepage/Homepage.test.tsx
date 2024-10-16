@@ -19,6 +19,15 @@ describe('Tests related to Homepage Component', () => {
         expect(loginButton).toBeInTheDocument();
     });
 
+    test("should renders the Register button", () => {
+        render(<Homepage />);
+
+        const registerButton = screen.getByRole('button', {
+            name: 'Register'
+        });
+        expect(registerButton).toBeInTheDocument();
+    });
+
 })
 
 
