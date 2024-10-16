@@ -1,17 +1,27 @@
-import { render, screen } from '@testing-library/react'
-import Homepage from "./Homepage"
+import { render, screen, fireEvent } from '@testing-library/react'
+import Homepage from "./Homepage";
+import { MemoryRouter, Routes, Route} from 'react-router-dom';
+import Login from '../Login/Login';
 
 describe('Tests related to Homepage Component', () => {
 
     test("should renders the welcome heading title", () => {
-        render(<Homepage />);
+        render(
+            <MemoryRouter>
+                <Homepage />
+            </MemoryRouter>
+        )
     
         const welcomeText = screen.getByText(/Welcome to FinGrow Finance Tracker Application/i);
         expect(welcomeText).toBeInTheDocument();
     });
 
     test("should renders the login button", () => {
-        render(<Homepage />);
+        render(
+            <MemoryRouter>
+                <Homepage />
+            </MemoryRouter>
+        )
 
         const loginButton = screen.getByRole('button', {
             name: 'Login'
@@ -20,7 +30,11 @@ describe('Tests related to Homepage Component', () => {
     });
 
     test("should renders the Register button", () => {
-        render(<Homepage />);
+        render(
+            <MemoryRouter>
+                <Homepage />
+            </MemoryRouter>
+        )
 
         const registerButton = screen.getByRole('button', {
             name: 'Register'
@@ -29,12 +43,34 @@ describe('Tests related to Homepage Component', () => {
     });
 
     test("should renders the welcome heading title", () => {
-        render(<Homepage />);
+        render(
+            <MemoryRouter>
+                <Homepage />
+            </MemoryRouter>
+        )
     
         const tagline = screen.getByRole("heading", {level:3});
         expect(tagline).toBeInTheDocument();
     });
 
+    test('should navigate to login component when login button is clicked', () => {
+        render(
+            <MemoryRouter initialEntries={['/']}>
+                <Homepage />
+                <Routes>
+                    <Route path='/login' element={<Login />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        const loginButton = screen.getByRole('button', {
+            name: 'Login'
+        });
+        fireEvent.click(loginButton);
+
+        const loginHeading = screen.getByText('Login!');
+        expect(loginHeading).toBeInTheDocument();
+    })
 })
 
 
