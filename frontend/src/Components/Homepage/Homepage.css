@@ -19,7 +19,7 @@
     color: rgb(49, 42, 85)
 }
   
-.button {
+.Hbutton {
     margin: 10px; 
     padding: 10px 20px; 
     font-size: 1rem; 
@@ -31,7 +31,7 @@
     transition: background-color 0.3s;
 }
   
-.button:hover {
+.Hbutton:hover {
     background-color: rgb(255, 255, 255); 
     color: rgb(96, 80, 185);
     font-weight: bolder;
