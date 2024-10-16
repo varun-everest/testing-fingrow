@@ -6,6 +6,7 @@ import BudgetModel from './collections/budget.collection';
 import SavingGoalsModel from './collections/savingsgoals.collection';
 import router from './routes/router';
 import User from './classes/User';
+import { readCsvFile } from './ImportData/importTransactions';
 
 
 // const PORT = 4000;
@@ -20,6 +21,7 @@ const initializeDatabase = async() => {
 
     const user = new User('varun','V@run765', 100000);
     await user.registerUser();
+    // readCsvFile('src/data/previoustransactions.csv')
 }
 
 initializeDatabase();
