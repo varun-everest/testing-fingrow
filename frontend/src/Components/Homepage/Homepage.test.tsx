@@ -9,7 +9,16 @@ describe('Tests related to Homepage Component', () => {
         const welcomeText = screen.getByText(/Welcome to FinGrow Finance Tracker Application/i);
         expect(welcomeText).toBeInTheDocument();
     });
-    
+
+    test("should renders the login button", () => {
+        render(<Homepage />);
+
+        const loginButton = screen.getByRole('button', {
+            name: 'Login'
+        });
+        expect(loginButton).toBeInTheDocument();
+    });
+
 })
 
 
