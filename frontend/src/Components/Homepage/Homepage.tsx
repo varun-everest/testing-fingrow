@@ -4,6 +4,7 @@ const Homepage = () => {
     <div>
         <h1>Welcome to FinGrow Finance Tracker Application</h1>
         <button>Login</button>
+        <button>Register</button>
     </div>
   )
 }
