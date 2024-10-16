@@ -9,6 +9,7 @@ describe('Tests related to Register component', () => {
 
         const usernameElement = screen.getByLabelText(/username/i);
         expect(usernameElement).toBeInTheDocument();
+        expect(usernameElement).toHaveAttribute('required');
     });
 
     test('should renders the password field', () => {
@@ -16,6 +17,7 @@ describe('Tests related to Register component', () => {
 
         const passwordElement = screen.getByLabelText(/password/i);
         expect(passwordElement).toBeInTheDocument();
+        expect(passwordElement).toHaveAttribute('required');
     });
 
     test('should renders the total income field', () => {
@@ -23,6 +25,7 @@ describe('Tests related to Register component', () => {
 
         const totalIncomeElement = screen.getByLabelText(/total income/i);
         expect(totalIncomeElement).toBeInTheDocument();
+        expect(totalIncomeElement).toHaveAttribute('required');
     });
 
     test('should renders the register button', () => {
