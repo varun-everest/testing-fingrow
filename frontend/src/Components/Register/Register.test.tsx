@@ -4,6 +4,13 @@ import Register from "./Register"
 
 describe('Tests related to Register component', () => {
 
+    test('should renders the Register heading', () => {
+        render(<Register />);
+
+        const register = screen.getByText('Register!')
+        expect(register).toBeInTheDocument()
+    })
+
     test('should renders the username field', () => {
         render(<Register />)
 
