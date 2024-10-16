@@ -19,7 +19,7 @@ const initializeDatabase = async() => {
     BudgetModel;
     SavingGoalsModel;
 
-    const user = new User('varun','V@run765', 100000);
+    const user = new User('arun','V@run765', 100000);
     await user.registerUser();
     // readCsvFile('src/data/previoustransactions.csv')
 }
