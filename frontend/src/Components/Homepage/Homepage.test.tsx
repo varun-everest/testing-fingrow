@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import Homepage from "./Homepage";
 import { MemoryRouter, Routes, Route} from 'react-router-dom';
 import Login from '../Login/Login';
+import Register from '../Register/Register';
 
 describe('Tests related to Homepage Component', () => {
 
@@ -70,6 +71,25 @@ describe('Tests related to Homepage Component', () => {
 
         const loginHeading = screen.getByText('Login!');
         expect(loginHeading).toBeInTheDocument();
+    });
+
+    test('should navigate to register component when register button is clicked', () => {
+        render(
+            <MemoryRouter initialEntries={['/']}>
+                <Homepage />
+                <Routes>
+                    <Route path='/register' element={<Register />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        const registerButton = screen.getByRole('button', {
+            name: 'Register'
+        });
+        fireEvent.click(registerButton);
+
+        const registerHeading = screen.getByText('Register!');
+        expect(registerHeading).toBeInTheDocument();
     })
 })
 
