@@ -43,4 +43,14 @@ describe('Tests related to Register component', () => {
         });
         expect(registerButton).toBeInTheDocument();
     });
+
+    test('should renders the already have an account text and login here text', () => {
+        render(<Register />)
+
+        const textElement = screen.getByText('Already have an account ?');
+        const loginTextElement = screen.getByText('Login here');
+
+        expect(textElement).toBeInTheDocument();
+        expect(loginTextElement).toBeInTheDocument();
+    })
 })
