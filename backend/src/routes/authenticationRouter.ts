@@ -5,18 +5,18 @@ const authRouter = express.Router();
 authRouter.use(express.json());
 
 //Recieves username and password!!
-authRouter.get('/login', async(req: Request, res: Response) => {
+authRouter.post('/login', async(req: Request, res: Response) => {
     
     const findUser = await UserModel.findOne({username: req.body.username});
     if(!findUser) {
-        res.send('Username does not exists!!');
+        res.status(404).send('Username does not exists!!');
         return;
     }
     if(findUser.password !== req.body.password) {
-        res.send('Incorrect Password');
+        res.status(401).send('Incorrect Password');
         return;
     }
-    res.send(`Login successful`);
+    res.status(200).send(findUser);
 });
 
 //It regiseters a new user with unique username...
