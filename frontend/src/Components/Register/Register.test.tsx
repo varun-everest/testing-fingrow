@@ -8,7 +8,12 @@ describe('Tests related to Register component', () => {
 
     beforeEach(() => {
         window.alert = jest.fn();
-    })
+        global.fetch = jest.fn();
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks(); 
+    });
 
     test('should renders the Register heading', () => {
         render(
@@ -130,5 +135,36 @@ describe('Tests related to Register component', () => {
         fireEvent.click(registerButton);
         expect(window.alert).toHaveBeenCalledWith('All fields are required!!');
       });
-      
+
+      test('should show alert for existing username', async () => {
+        render(
+            <MemoryRouter>
+                <Register />
+            </MemoryRouter>
+        );
+
+        (global.fetch as jest.Mock).mockImplementation(() => 
+            Promise.resolve({
+                status: 400,
+                json: () => Promise.resolve({ message: 'Username already taken, Choose another one' }),
+            })
+        );
+
+        (global.fetch as jest.Mock).mockResolvedValue(() =>{
+            status: 400
+        });
+        
+        
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: '1234' } });
+        fireEvent.change(screen.getByLabelText(/total income/i), { target: { value: '50000' } });
+
+        const registerButton = screen.getByRole("button", {
+            name: 'Register'
+        });
+
+        fireEvent.click(registerButton);
+
+        expect(window.alert).toHaveBeenCalledWith('Username already taken, Choose another one');
+    });
 })
