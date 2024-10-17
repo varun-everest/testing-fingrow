@@ -24,12 +24,12 @@ authRouter.post('/register', async(req: Request, res: Response) => {
     try{
         const findUser = await UserModel.findOne({username: req.body.username});
         if(findUser) {
-            res.send('UserName already exists');
+            res.status(400).send('UserName already exists');
             return;
         }
         const user = await UserModel.create(req.body);
         await user.save();
-        res.send(user);
+        res.status(201).send(user);
     } catch(err) {
         console.log("Error Occurred : ", err);
         res.status(400).send('BadRequest');
