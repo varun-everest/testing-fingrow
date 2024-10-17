@@ -6,6 +6,10 @@ import Login from '../Login/Login';
 
 describe('Tests related to Register component', () => {
 
+    beforeEach(() => {
+        window.alert = jest.fn();
+    })
+
     test('should renders the Register heading', () => {
         render(
             <MemoryRouter>
@@ -112,4 +116,19 @@ describe('Tests related to Register component', () => {
         expect((screen.getByLabelText(/Password/i) as HTMLInputElement).value).toBe('Varun@765');
         expect((screen.getByLabelText(/Total Income/i) as HTMLInputElement).value).toBe('100000');
       });
+
+      test('should renders the alert when the fields are empty', () => {
+        render(
+            <MemoryRouter>
+                <Register />
+            </MemoryRouter>
+        );
+
+        const registerButton = screen.getByRole("button", {
+            name: 'Register'
+        });
+        fireEvent.click(registerButton);
+        expect(window.alert).toHaveBeenCalledWith('All fields are required!!');
+      });
+      
 })
