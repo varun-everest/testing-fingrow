@@ -120,9 +120,9 @@ describe('Tests related to Register component', () => {
         expect((screen.getByLabelText(/Username/i) as HTMLInputElement).value).toBe('varun');
         expect((screen.getByLabelText(/Password/i) as HTMLInputElement).value).toBe('Varun@765');
         expect((screen.getByLabelText(/Total Income/i) as HTMLInputElement).value).toBe('100000');
-      });
+    });
 
-      test('should renders the alert when the fields are empty', () => {
+    test('should renders the alert when the fields are empty', () => {
         render(
             <MemoryRouter>
                 <Register />
@@ -134,9 +134,9 @@ describe('Tests related to Register component', () => {
         });
         fireEvent.click(registerButton);
         expect(window.alert).toHaveBeenCalledWith('All fields are required!!');
-      });
+    });
 
-      test('should show alert for existing username', async () => {
+    test('should show alert for existing username', async () => {
         render(
             <MemoryRouter>
                 <Register />
