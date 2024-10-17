@@ -4,6 +4,10 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Register from '../Register/Register';
 
 describe('Tests related to Login component', () => {
+
+    beforeAll(() => {
+        window.alert = jest.fn();
+    })
     
     test('should renders the Login heading', () => {
         render(
@@ -83,6 +87,34 @@ describe('Tests related to Login component', () => {
 
         const registerHeading = screen.getByText('Register!'); 
         expect(registerHeading).toBeInTheDocument();
+    });
+
+    test('should check for correct input values', () => {
+        render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: 'Varun@765' } });
+
+        expect((screen.getByLabelText(/Username/i) as HTMLInputElement).value).toBe('varun');
+        expect((screen.getByLabelText(/Password/i) as HTMLInputElement).value).toBe('Varun@765');
+    });
+
+    test('should renders the alert when the fields are empty', () => {
+        render(
+            <MemoryRouter>
+                <Login />
+            </MemoryRouter>
+        );
+
+        const loginButton = screen.getByRole("button", {
+            name: 'Login'
+        });
+        fireEvent.click(loginButton);
+        expect(window.alert).toHaveBeenCalledWith('All fields are required!!');
     });
 
 });
