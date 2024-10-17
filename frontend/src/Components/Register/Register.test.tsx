@@ -96,4 +96,20 @@ describe('Tests related to Register component', () => {
         const loginHeading = screen.getByText('Login!'); 
         expect(loginHeading).toBeInTheDocument();
     });
+
+    test('should check for correct input values', () => {
+        render(
+            <MemoryRouter>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(screen.getByLabelText(/Username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/Password/i), { target: { value: 'Varun@765' } });
+        fireEvent.change(screen.getByLabelText(/Total Income/i), { target: { value: '100000' } });
+
+        expect((screen.getByLabelText(/Username/i) as HTMLInputElement).value).toBe('varun');
+        expect((screen.getByLabelText(/Password/i) as HTMLInputElement).value).toBe('Varun@765');
+        expect((screen.getByLabelText(/Total Income/i) as HTMLInputElement).value).toBe('100000');
+      });
 })
