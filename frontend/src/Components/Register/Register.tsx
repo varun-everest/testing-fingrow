@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import './Register.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [totalIncome, setTotalIncome] = useState('');
+
+    const navigate = useNavigate();
 
     const handleRegister = async() => {
         if(username.length === 0 || password.length === 0 || totalIncome.length === 0) {
@@ -32,6 +34,7 @@ const Register = () => {
                 const userdata = await response.json();
                 console.log('Registration successful:', userdata);
                 alert("Registration Successfull");
+                navigate('/login');
             } 
             else if(response.status === 400) {
                 alert('Username already taken, Choose another one');
