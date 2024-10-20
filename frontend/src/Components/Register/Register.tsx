@@ -50,7 +50,7 @@ const Register = () => {
   return (
     <div className='register-container'>
         
-        <div className='form-container'>
+        <div className='register-form-container'>
             <p className='register-heading'>Register!</p>
             <div className='field-container'>
                 <label htmlFor='username'>Username</label>
