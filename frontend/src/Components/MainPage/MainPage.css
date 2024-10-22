@@ -1,0 +1,53 @@
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: lavender; */
+    height: auto;
+    gap:30px;
+    padding:20px;
+}
+  
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap:20px;
+    width: 100%;
+    padding: 20px;
+    /* background-color: lavender; */
+}
+
+.hero-image {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.fingrow-title {
+    font-size: 2rem; 
+    font-weight: bolder; 
+    color: #3f3587; 
+    margin: 0;
+    padding: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.select-box {
+    padding:30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 50%;
+    height: auto;
+    gap:10%;
+}
+
+.individual-box {
+    display: flex;
+    flex-direction: column;
+    gap:10px
+}
+
+  
