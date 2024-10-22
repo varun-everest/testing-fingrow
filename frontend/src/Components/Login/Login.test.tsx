@@ -1,13 +1,46 @@
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, screen, fireEvent, waitFor} from '@testing-library/react'
 import Login from "./Login";
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Register from '../Register/Register';
+import { DataContext } from '../../Context/Context';
+
+
+let mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'), 
+    useNavigate: () => mockNavigate, 
+}));
 
 describe('Tests related to Login component', () => {
 
-    beforeAll(() => {
+    beforeEach(() => {
         window.alert = jest.fn();
-    })
+        global.fetch = jest.fn();
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks(); 
+    });
+
+    const mockData = {
+        recentTxns: [],
+        username: '',
+        setUserName: jest.fn(),
+        isLogin: false,
+        setIsLogin: jest.fn(),
+        setRecentTxns: jest.fn(),
+        fetchTxns: jest.fn(),
+    };
+
+    const renderWithDataContext = () => {
+        return render(
+            <MemoryRouter>
+                <DataContext.Provider value={mockData}>
+                    <Login />
+                </DataContext.Provider>
+            </MemoryRouter>
+        );
+    };
     
     test('should renders the Login heading', () => {
         render(
@@ -117,4 +150,108 @@ describe('Tests related to Login component', () => {
         expect(window.alert).toHaveBeenCalledWith('All fields are required!!');
     });
 
+    test('should shows for successful login message and navigate to home page', async () => {
+        
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                status: 200,
+                json: () => Promise.resolve({ username: 'varun' }),
+            })
+        ) as jest.Mock;
+
+        renderWithDataContext();
+
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'V@run765' } });
+
+        const loginButton = screen.getByRole('button', { name: 'Login' });
+        fireEvent.click(loginButton);
+
+        await waitFor(() => {
+            expect(mockData.setIsLogin).toHaveBeenCalledWith(true);
+            expect(mockData.setUserName).toHaveBeenCalledWith('varun');
+            expect(mockNavigate).toHaveBeenCalledWith('/home');
+        });
+    });
+
+    test('should show alert when username does not exist', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                status: 404,
+            })
+        ) as jest.Mock;
+
+        renderWithDataContext();
+
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'Varu' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: '1234' } });
+
+
+        const loginButton = screen.getByRole('button', { name: 'Login' });
+        fireEvent.click(loginButton);
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Not a valid username');
+            expect(screen.getByLabelText(/username/i)).toHaveValue('');
+            expect(screen.getByLabelText(/password/i)).toHaveValue('');
+        });
+    });
+
+    test('should show alert for incorrect password', async () => {
+        
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                status: 401,
+            })
+        ) as jest.Mock;
+
+        renderWithDataContext();
+
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: '12345' } });
+
+        const loginButton = screen.getByRole('button', { name: 'Login' });
+        fireEvent.click(loginButton);
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Incorrect password');
+            expect(screen.getByLabelText(/password/i)).toHaveValue('');
+        });
+    });
+
+    test('should show alert for login failed', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                status: 500,
+            })
+        ) as jest.Mock;
+
+        renderWithDataContext();
+
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password' } });
+
+        const loginButton = screen.getByRole('button', { name: 'Login' });
+        fireEvent.click(loginButton);
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Login failed!!');
+        });
+    });
+
+    test('should show alert and give an error if there is any error occurred', async () => {
+        global.fetch = jest.fn(() => Promise.reject(new Error('some error occurred'))) as jest.Mock;
+
+        renderWithDataContext();
+
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password' } });
+
+        const loginButton = screen.getByRole('button', { name: 'Login' });
+        fireEvent.click(loginButton);
+
+        await waitFor(() => {
+            expect(window.alert).toHaveBeenCalledWith('Login failed');
+        });
+    });
 });
