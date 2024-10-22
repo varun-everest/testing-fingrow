@@ -1,16 +1,61 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { DataContext } from '../../Context/Context';
 
 const Login = () => {
+
+    const {setUserName, setIsLogin} = useContext(DataContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
+    const navigate = useNavigate();
+
+    const handleLogin = async() => {
         if(username.length === 0 || password.length === 0) {
             alert('All fields are required!!');
             return;
+        }
+
+        const credentials = {
+            username,
+            password
+        }
+
+        try {
+            const response = await fetch('http://localhost:4000/fingrow/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials),
+            });
+
+            if(response.status === 200) {
+                console.log('Login successfull');
+                // alert('Successfully logged in');
+                const data = await response.json();
+                console.log(data);
+                setIsLogin(true);
+                setUserName(data.username);
+                navigate('/home');
+            } 
+            else if(response.status === 404) {
+                setUsername('');
+                setPassword('');
+                alert('Not a valid username');
+            } 
+            else if(response.status === 401) {
+                setPassword('');
+                alert('Incorrect password');
+            }
+            else {
+                alert("Login failed!!");
+            }
+        } catch (error) {
+            console.error('There was a problem with the Login:', error);
+            alert('Login failed');
         }
     }
 
@@ -35,4 +80,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;
