@@ -1,10 +1,21 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import Register from "./Register"
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Login from '../Login/Login';
 
 
+let mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => mockNavigate, 
+}));
+
 describe('Tests related to Register component', () => {
+
+
+    beforeAll(() => {
+
+    });
 
     beforeEach(() => {
         window.alert = jest.fn();
@@ -142,29 +153,140 @@ describe('Tests related to Register component', () => {
                 <Register />
             </MemoryRouter>
         );
-
-        (global.fetch as jest.Mock).mockImplementation(() => 
+    
+       
+        global.fetch = jest.fn(() =>
             Promise.resolve({
                 status: 400,
                 json: () => Promise.resolve({ message: 'Username already taken, Choose another one' }),
             })
-        );
-
-        (global.fetch as jest.Mock).mockResolvedValue(() =>{
-            status: 400
-        });
-        
+        ) as jest.Mock;
+    
         
         fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
         fireEvent.change(screen.getByLabelText(/password/i), { target: { value: '1234' } });
         fireEvent.change(screen.getByLabelText(/total income/i), { target: { value: '50000' } });
+    
+        const registerButton = screen.getByRole("button", {
+            name: 'Register'
+        });
+        fireEvent.click(registerButton);
+
+        await screen.findByRole('button'); 
+        expect(window.alert).toHaveBeenCalledWith('Username already taken, Choose another one');
+
+    });
+
+    test('should show alert for successful registration and navigate to login page', async () => {
+        
+        render(
+            <MemoryRouter>
+                <Register />
+            </MemoryRouter>
+        );
+    
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                status: 201,
+                json: () => Promise.resolve({ message: 'Registration Successfull' }),
+            })
+        ) as jest.Mock;
+    
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'Varun@123' } });
+        fireEvent.change(screen.getByLabelText(/total income/i), { target: { value: '100000' } });
+ 
+        const registerButton = screen.getByRole("button", {
+            name: 'Register'
+        });
+        fireEvent.click(registerButton);
+    
+        const mockConsoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        await screen.findByRole('button'); 
+        
+        expect(mockConsoleSpy).toHaveBeenCalledWith('Registration Successfull');
+    
+        expect(fetch).toHaveBeenCalledWith('http://localhost:4000/fingrow/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: 'varun',
+                password: 'Varun@123',
+                totalIncome: 100000
+            }),
+        });
+        await waitFor(() => {
+            expect(mockNavigate).toHaveBeenCalledWith('/login');
+        })
+        
+    });
+    
+    test('should consoles successful registration and navigate to login page', async () => {
+        
+        render(
+            <MemoryRouter>
+                <Register />
+            </MemoryRouter>
+        );
+    
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                status: 500,
+                json: () => Promise.resolve({ message: 'Registration Successfull' }),
+            })
+        ) as jest.Mock;
+    
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'Varun@123' } });
+        fireEvent.change(screen.getByLabelText(/total income/i), { target: { value: '100000' } });
+ 
+        const registerButton = screen.getByRole("button", {
+            name: 'Register'
+        });
+        fireEvent.click(registerButton);
+    
+        const mockConsoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        
+        await screen.findByRole('button'); 
+        
+        expect(window.alert).toHaveBeenCalledWith('Registration failed!!');
+    
+        expect(fetch).toHaveBeenCalledWith('http://localhost:4000/fingrow/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: 'varun',
+                password: 'Varun@123',
+                totalIncome: 100000
+            }),
+        });
+    });
+
+    test('should show alert when registration fails (catch block)', async () => {
+       
+        global.fetch = jest.fn(() => Promise.reject('Network error')) as jest.Mock;
+
+        render(
+            <MemoryRouter>
+                <Register />
+            </MemoryRouter>
+        );
+
+        fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'varun' } });
+        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'Varun@123' } });
+        fireEvent.change(screen.getByLabelText(/total income/i), { target: { value: '100000' } });
 
         const registerButton = screen.getByRole("button", {
             name: 'Register'
         });
-
         fireEvent.click(registerButton);
 
-        expect(window.alert).toHaveBeenCalledWith('Username already taken, Choose another one');
+        await screen.findByRole('button'); 
+        expect(window.alert).toHaveBeenCalledWith('Registration failed');
     });
+
 })
