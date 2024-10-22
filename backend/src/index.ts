@@ -5,8 +5,6 @@ import TransactionModel from './collections/transactions.collection';
 import BudgetModel from './collections/budget.collection';
 import SavingGoalsModel from './collections/savingsgoals.collection';
 import router from './routes/router';
-import User from './classes/User';
-import { readCsvFile } from './ImportData/importTransactions';
 import cors from 'cors';
 
 
@@ -27,10 +25,6 @@ const initializeDatabase = async() => {
     // TransactionModel
     // BudgetModel;
     // SavingGoalsModel;
-
-    // const user = new User('arun','V@run765', 100000);
-    // await user.registerUser();
-    // readCsvFile('src/data/previoustransactions.csv')
 }
 
 initializeDatabase();
