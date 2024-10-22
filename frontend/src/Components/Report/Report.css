@@ -1,0 +1,53 @@
+/* Report.css */
+
+.report-container {
+    
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #ffffff;
+    width: 100%
+}
+
+.report-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.report-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+
+.total-summary {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total-summary p {
+    text-align: center;
+}
+
+.income-value {
+    color: rgb(41, 213, 41);
+}
+
+.expense-value {
+    color: rgb(238, 6, 6);
+}
