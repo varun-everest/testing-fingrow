@@ -1,7 +1,7 @@
 import csv  from 'csv-parser';
 import fs from 'fs';
 import UserModel from '../collections/user.collection';
-import User from '../classes/User';
+import Transaction from '../services/Transaction';
 
 interface txn {
     username: string,
@@ -24,8 +24,8 @@ export const readCsvFile = async (filepath: string) => {
                 if(!finduser) {
                     console.log("User does not exists");
                 } else {
-                    const user = new User(finduser.username, finduser.password, finduser.totalIncome);
-                    await user.makeTransaction(data.amount, data.txnCategory, data.name, data.description, data.date);
+                    const transaction = new Transaction(data.amount, data.txnCategory, data.name, data.description, data.date);
+                    const status = await transaction.addTransaction(data.username);
                 }
             }
             catch (e) {
