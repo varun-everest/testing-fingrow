@@ -38,28 +38,6 @@ Make sure that you have the following installed on your machine:
 - **Mongoose**
 - **Jest**
 
-
-## Setting Up the Environment
-
-For detailed guidance on setting up Jest with TypeScript, please refer to the official documentation:
-
-- **[Jest Getting Started](https://jestjs.io/docs/getting-started)**
-
-## Usage  
-    git clone git@github.com:varun-everest/testing-fingrow.git
-    
-    cd testing-fingrow
-
-    npm install 
-
-    npm test 
-
-### For Running app
-    npm start
-
-## Contact 
-    For any queries, reach out to this mail
-    Mail : varunkumar.martha@everest.engineering
     
 ### Thank you
     
