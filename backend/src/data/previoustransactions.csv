@@ -1,0 +1,8 @@
+username,amount,txnCategory,name,date,description
+"Kane",1000,"budget","Medical","2024-10-5","Doctor appointment"
+"Kane",2000,"budget","Medical","2024-10-12","Medicines"
+"Kane",2000,"budget","Entertainment","2024-10-09","Devara Movie"
+"Kane",1000,"budget","Entertainment","2024-10-19","Dsp event"
+"Kane",5000,"savinggoal","Car","2024-10-09","Car savings"
+"Kane",10000,"savinggoal","Home","2024-10-10","Home Savings"
+"Kane",5000,"savinggoal","Car","2024-10-12","Rolls Royce savings"

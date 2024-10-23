@@ -3,18 +3,29 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch",
+    "start": "nodemon ./src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/jest": "^29.5.13",
+    "@types/mongoose": "^5.11.96",
     "@types/node": "^22.7.0",
+    "csv-parser": "^3.0.0",
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
     "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@types/cors": "^2.8.17",
+    "cors": "^2.8.5"
   }
 }
