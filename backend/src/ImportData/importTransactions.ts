@@ -11,21 +11,25 @@ interface txn {
     date: Date,
     description: string
 }
-
-export const readCsvFile = async (filepath: string) => {
+ 
+export const readCsvFile = async () => {
     return new Promise((resolve, reject) => {
-        const stream = fs.createReadStream(filepath)
+        const filePath = '/Users/admin/Desktop/DT/Testing/fingrow/backend/src/data/previoustransactions.csv'
+        const stream = fs.createReadStream(filePath);
         const csvStream = csv();
         const csvPipe = stream.pipe(csvStream);
         csvPipe.on('data', async (data: txn) => {
             csvPipe.pause();
             try {
+                console.log(data);
                 const finduser = await UserModel.findOne({username: data.username});
                 if(!finduser) {
                     console.log("User does not exists");
                 } else {
+                    console.log(finduser);
                     const transaction = new Transaction(data.amount, data.txnCategory, data.name, data.description, data.date);
                     const status = await transaction.addTransaction(data.username);
+                    console.log(status);
                 }
             }
             catch (e) {
