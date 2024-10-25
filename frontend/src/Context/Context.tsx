@@ -56,14 +56,25 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({children}) => 
     }
 
     useEffect(() => {
-        const fetchRecentTxns = () => {
-            fetchTxns();
+        const fetchRecentTxns = async() => {
+            if(!username) {
+                return;
+            }
+    
+            const response = await fetch(`http://localhost:4000/fingrow/${username}/transactions/recent`, {
+                method:'GET',
+            });
+            if(response.status === 200){
+                const data = await response.json();
+                console.log(data);
+                setRecentTxns(data);
+            }
         }
 
         if (isLogin) {
             fetchRecentTxns();
         }
-    }, [username, isLogin, fetchTxns]);
+    }, [username, isLogin]);
 
     const value = {
         username,
