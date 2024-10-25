@@ -59,7 +59,7 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({children}) => 
         if (isLogin) {
             fetchTxns();
         }
-    }, [username, isLogin]);
+    }, [username, isLogin, fetchTxns]);
 
     const value = {
         username,
