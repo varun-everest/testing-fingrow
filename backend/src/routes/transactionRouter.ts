@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import TransactionModel from '../collections/transactions.collection';
 import Transaction from '../services/Transaction';
 import UserModel from '../collections/user.collection';
+import { readCsvFile } from '../ImportData/importTransactions';
 
 const transactionRouter = express.Router();
 transactionRouter.use(express.json());
@@ -75,6 +76,12 @@ transactionRouter.post('/:username/transactions', async(req: Request, res: Respo
     else if(txnStatus === 'Success'){
         res.status(200).send("Successfully done transaction");
     }
+    return ;
+});
+
+transactionRouter.post('/transactions', async(req: Request, res: Response) => {
+    await readCsvFile();
+    res.status(200).send('Successfully imported transactions');
     return ;
 });
 
