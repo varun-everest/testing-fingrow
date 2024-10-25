@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import { InitialEntry } from '@remix-run/router';
 
-describe('Tests relate to the App Component', () => {
+describe('Tests related to the to the App Component', () => {
 
     const renderAppWithRouter = (initialEntries: InitialEntry[]) => {
       return render(
