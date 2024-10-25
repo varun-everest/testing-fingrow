@@ -11,7 +11,7 @@ import Report from '../Report/Report';
 
 const MainPage = () => {
 
-    const {username, isLogin, fetchTxns} = useContext(DataContext);
+    const {username, fetchTxns} = useContext(DataContext);
     const [reportData, setReportData] = useState({});
     const [reportType, setReportType] = useState('');
     const [totalExpenses, setTotalExpenses] = useState('');
