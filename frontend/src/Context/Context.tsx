@@ -55,11 +55,11 @@ const DataContextProvider: React.FC<DataContextProviderProps> = ({children}) => 
         }
     }
 
-    useEffect(() => {
-        if (isLogin) {
-            fetchTxns();
-        }
-    }, [username, isLogin, fetchTxns]);
+    // useEffect(() => {
+    //     // if (isLogin) {
+    //     //     fetchTxns();
+    //     // }
+    // }, [username, isLogin]);
 
     const value = {
         username,
