@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,5 +42,15 @@
   "devDependencies": {
     "@types/jest": "^29.5.13",
     "react-router-dom": "^6.27.0"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 85,
+        "functions": 90,
+        "lines": 95,
+        "statements": 95
+      }
+    }
   }
 }
