@@ -123,4 +123,4 @@ FinGrow is a personal finance management application that enables users to track
    Email: varunkumar.martha@everest.engineering
 ```
 
-### Thank You!! 🙏
+### Thank You!! 😊
