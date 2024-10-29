@@ -26,10 +26,11 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Tests and coverage') {
             steps {
                 dir('frontend') {
                     sh 'npm test'
+                    sh 'npm test -- --coverage watchAll = false'
                 }
             }
         }
