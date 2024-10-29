@@ -1,44 +1,5 @@
-# FinGrow
+# FinGrow -- Jenkins
 
-FinGrow is a personal finance management application that enables users to track income, manage expenses, set and monitor savings goals and make transactions. The application provides detailed financial reports, budget tracking, and alerts to keep users informed of their financial health.
-
-## Features
-
-1. **User Authentication :**  
-
-   Users can register and log in to the application with secure credentials.
-   
-2. **Transaction Management:**  
-   Users can store, view, and manage all their transactions, including income and expenses.
-
-3. **Budget Management:**  
-   Users can set and update budgets, monitor spending by category, and track how much of their budget has been spent.
-
-4. **Savings Goals:**  
-   Users can set savings goals, contribute towards them, and track progress over time.
-
-5. **Financial Reports:**  
-   Generate detailed reports showing total income, expenses, budget usage, and progress towards savings goals over specified time periods.
-
-6. **Alerts and Notifications:**  
-   Receive alerts when spending exceeds budget limits or when savings goals are close to being achieved.
-
-7. **Data Persistence:**  
-   All user data, including transactions, budgets, and savings goals, is stored securely in a MongoDB database.
-
-## Table of Contents
-
-- ### [Tech stack](#tech-stack)
-- ### [System Requirements](#system-requirements)
-- ### [Installation](#installation)
-- ### [Usage](#usage)
-
-# Tech Stack
-
-- **TypeScript**: Ensures type safety during development.
-- **Jest**: Used for unit testing.
-- **MongoDB**: Database used to store user data and transactions.
-- **Mongoose**: Object Data Modeling (ODM) library for MongoDB.
 
 ## System Requirements
 
@@ -51,23 +12,34 @@ FinGrow is a personal finance management application that enables users to track
    ```bash
    brew install watchman
    ```
-3. Install MongoDB in MacOS, run following commands
+3. ### Jenkins Setup
 
-   -  Install MongoDB, run the  command
-      
-      ```
-      brew install mongodb-community@latest
-      ```
-   -  Run MongoDB as a macOS service
-      
-      ```
-      brew services start mongodb-community
-      ```
+    **Install and start Jenkins:**
+        
+        brew install jenkins-lts
+        brew start services jenkins-lts
+
+
+### Jenkins and GitHub Integration
+
+1. **Integrate GitHub:**
+   - Connect GitHub to Jenkins using a Personal Access Token (PAT).
+
+### Create Jenkins Pipeline
+
+1. **Pipeline Creation:**
+   - Create a Jenkins Pipeline and add the GitHub repository with the specified branch using your GitHub credentials.
+   - Implement stages for automated builds, test processes, and checks for code coverage thresholds.
+
+### Email Notifications
+
+1. **Configure Email Notifications:**
+
 ## Installation
 #### Clone the Repo
    
    ```bash
-   git clone -b fingrow-part-3 https://github.com/varun-everest/testing-fingrow
+   git clone -b fingrow-jenkins-ci/cd https://github.com/varun-everest/testing-fingrow
    ```
 #### Install dependencies:
    - In Frontend : 
@@ -80,43 +52,23 @@ FinGrow is a personal finance management application that enables users to track
       ```bash
       npm install
       ```
-   - Go Backend
-      
-      ```bash
-      cd backend
-      ```
-   - Run following command.
-      
-      ```bash
-      npm install
-      ```
-## Usage
-- In order to Run the backend tests, follow the below commands
-    
-    ```bash
-    cd backend
-    npm  test
-   ```
-- In order to run the frontend tests, follow the below commands
-    ```bash
-    cd frontend
-   npm test
-   ```
-- In order to run the backend, follow the below commands
-      
-    ```bash
-    cd backend
-    npm start
-    ```
-  
+## Here are some snapshots
 
-- In order to start application, follow the below commands
-      
-    ```bash
-    cd frontend
-   
-    npm start
-    ```
+## Build Failure 
+
+![Build fail](snapshots/fail.png)
+
+## Build Fail Mail Notification
+![Build fail](snapshots/fail_mail.png)
+
+
+## Build Success
+![Build fail](snapshots/success.png)
+
+## Build Success Notification
+![Build fail](snapshots/success_mail.png)
+
+
 
 ### If you have any queries, feel free to reach out
 ```bash
