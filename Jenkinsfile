@@ -30,7 +30,7 @@ pipeline {
             steps {
                 dir('frontend') {
                     sh 'npm test'
-                    sh 'npm test -- --coverage --watchAll=false'
+                    sh 'npm test -- --watchAll=false'
                 }
             }
         }
