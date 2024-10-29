@@ -38,12 +38,12 @@ pipeline {
 
     post {
         success {
-            mail to: 'varunkumar.martha@everest.engineering.com',
+            mail to: 'varunkumar.martha@everest.engineering',
                  subject: "Jenkins Build Success - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                     body: "Hey!!Congrats your build succeded"
         }
         failure {
-            mail to: 'varunkumar.martha@everest.engineering.com',
+            mail to: 'varunkumar.martha@everest.engineering',
                  subject: "Jenkins Build Failure - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                  body: "Oooops!! You build failed"
         }
