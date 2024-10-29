@@ -35,4 +35,17 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            mail to: 'varunkumarmartha2003@gmail.com',
+                 subject: "Jenkins Build Success - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: "Hey!!Congrats your build succeded"
+        }
+        failure {
+            mail to: 'varunkumarmartha2003@gmail.com.com',
+                 subject: "Jenkins Build Failure - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                 body: "Oooops!! You build failed"
+        }
+    }
 }
