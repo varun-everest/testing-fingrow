@@ -44,7 +44,7 @@ pipeline {
             mail bcc: '', body: 'Hey!!Congrats your build succeded', cc: '', from: '', replyTo: '', subject: """'Jenkins Build Success - ${env.JOB_NAME} #${env.BUILD_NUMBER}'""", to: 'varunkumar.martha@everest.engineering'
         }
         failure {
-            mail bcc: '', body: 'Oooops!! You build failed', cc: '', from: '', replyTo: '', subject: """'Jenkins Build Failure - ${env.JOB_NAME} #${env.BUILD_NUMBER}'""", to: 'varunkumar.martha@everest.engineering'
+            mail bcc: '', body: 'Oooops!! Your build failed', cc: '', from: '', replyTo: '', subject: """'Jenkins Build Failure - ${env.JOB_NAME} #${env.BUILD_NUMBER}'""", to: 'varunkumar.martha@everest.engineering'
         }
     }
 }
