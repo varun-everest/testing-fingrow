@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install the Dependencies') {
             steps {
                 dir('frontend') {
                     sh 'npm install'
@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Run Build') {
             steps {
                 dir('frontend') {
                     sh 'npm run build'
