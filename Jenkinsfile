@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Tests and coverage') {
+        stage('Run Tests and coverage') {
             steps {
                 dir('frontend') {
                     sh 'npm test'
