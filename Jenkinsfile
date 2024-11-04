@@ -3,6 +3,9 @@ pipeline {
     environment{
         PATH = "${env.PATH}:/usr/local/bin"
     }
+    triggers {
+        cron('H * * * *') 
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Installing Dependencies') {
+        stage('Install Dependencies') {
             steps {
                 dir('frontend') {
                     sh 'npm install'
