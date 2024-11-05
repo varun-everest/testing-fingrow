@@ -1,27 +1,78 @@
-# FinGrow 
-## A testing application for tracking the transaction management of users.
-#### This application is strictly for testing the functionalities purpose only. 
+# FinGrow -- Jenkins
 
-## Usage  
-    git clone git@github.com:varun-everest/testing-fingrow.git -b latest_branch_name
-    
-    cd testing-fingrow
 
-    npm install 
+## System Requirements
 
-    npm test 
+1. Install Node.js on macOS.
 
-## Note 
-    Here is the important note!!
-    - The main code exists in the latest branch. You can clone the latest updated branch code base.
-    - Don't worry, I will update in this README which one is latest branch.
+   ```bash
+   brew install node
+   ```
+2. Install watchman on macOS 
+   ```bash
+   brew install watchman
+   ```
+3. ### Jenkins Setup
 
-#### Current latest branch:
-    fingrow-part-1
+    **Install and start Jenkins:**
+        
+        brew install jenkins-lts
+        brew start services jenkins-lts
 
-## Contact 
-    For any queries, reach out to this mail
-    Mail : varunkumar.martha@everest.engineering
-    
-### Thank you
-    
+
+### Jenkins and GitHub Integration
+
+1. **Integrate GitHub:**
+   - Connect GitHub to Jenkins using a Personal Access Token (PAT).
+
+### Create Jenkins Pipeline
+
+1. **Pipeline Creation:**
+   - Create a Jenkins Pipeline and add the GitHub repository with the specified branch using your GitHub credentials.
+   - Implement stages for automated builds, test processes, and checks for code coverage thresholds.
+
+### Email Notifications
+
+1. **Configure Email Notifications:**
+
+## Installation
+#### Clone the Repo
+   
+   ```bash
+   git clone -b fingrow-jenkins-ci/cd https://github.com/varun-everest/testing-fingrow
+   ```
+#### Install dependencies:
+   - In Frontend : 
+
+      ```bash
+      cd frontend
+      ```
+   - Run following.
+
+      ```bash
+      npm install
+      ```
+## Here are some snapshots
+
+## Build Failure 
+
+![Build fail](snapshots/fail.png)
+
+## Build Fail Mail Notification
+![Build fail](snapshots/fail_mail.png)
+
+
+## Build Success
+![Build fail](snapshots/success.png)
+
+## Build Success Notification
+![Build fail](snapshots/success_mail.png)
+
+
+
+### If you have any queries, feel free to reach out
+```bash
+   Email: varunkumar.martha@everest.engineering
+```
+
+### Thank You!! 😊

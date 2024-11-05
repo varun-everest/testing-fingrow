@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(120deg, rgb(157, 157, 239) 60%, rgb(133, 133, 247) 80%, rgb(62, 62, 140) 100%);
+    background-size: cover;
+}
+  
+.title {
+    animation: slideIn 3s ease-in-out;
+    margin-bottom: 20px; 
+    font-size: 2.5rem; 
+    text-align: center; 
+}
+
+.tag-title {
+    color: rgb(49, 42, 85)
+}
+  
+.Hbutton {
+    margin: 10px; 
+    padding: 10px 20px; 
+    font-size: 1rem; 
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8); 
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+.Hbutton:hover {
+    background-color: rgb(255, 255, 255); 
+    color: rgb(96, 80, 185);
+    font-weight: bolder;
+}
+
+@keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+}
